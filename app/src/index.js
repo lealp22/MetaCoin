@@ -1,5 +1,6 @@
 import Web3 from "web3";
-import metaCoinArtifact from "../../build/contracts/MetaCoin.json";
+//import metaCoinArtifact from "../../build/contracts/MetaCoin.json";
+import metaCoinArtifact from "../MetaCoin.json";
 
 const App = {
   web3: null,
