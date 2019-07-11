@@ -10,6 +10,11 @@ const App = {
   start: async function() {
     const { web3 } = this;
 
+	// Log
+	console.log("** start **");	
+	console.log("This: ", this);
+	console.log("Web3: ", web3);
+
     try {
       // get contract instance
       const networkId = await web3.eth.net.getId();
@@ -19,19 +24,35 @@ const App = {
         deployedNetwork.address,
       );
 
+	  // Log
+	  console.log("networkId: ", networkId);
+	  console.log("deployedNetwork.address: ", deployedNetwork.address);
+	  console.log("deployedNetwork: ", deployedNetwork);
+
       // get accounts
       const accounts = await web3.eth.getAccounts();
       this.account = accounts[0];
 
+	  // Log
+	  console.log("Account: ", this.account);
+	  console.log("Accounts: ", accounts);
+
       this.refreshBalance();
     } catch (error) {
       console.error("Could not connect to contract or chain.");
+	  // Log
+	  console.log("error: ", error);	  
     }
   },
 
   refreshBalance: async function() {
     const { getBalance } = this.meta.methods;
     const balance = await getBalance(this.account).call();
+	
+	// Log
+	console.log("** refreshBalance **");
+	console.log("this.account: ", this.account);	
+	console.log("balance: ", balance);	
 
     const balanceElement = document.getElementsByClassName("balance")[0];
     balanceElement.innerHTML = balance;
@@ -40,6 +61,11 @@ const App = {
   sendCoin: async function() {
     const amount = parseInt(document.getElementById("amount").value);
     const receiver = document.getElementById("receiver").value;
+	
+	// Log
+	console.log("** sendCoin **");
+	console.log("amount: ", amount);	
+	console.log("receiver: ", receiver);	
 
     this.setStatus("Initiating transaction... (please wait)");
 
@@ -59,6 +85,11 @@ const App = {
 window.App = App;
 
 window.addEventListener("load", function() {
+
+  // Log
+  console.log("** load **");
+  console.log("window.ethereum: ", window.ethereum);	
+	
   if (window.ethereum) {
     // use MetaMask's provider
     App.web3 = new Web3(window.ethereum);
